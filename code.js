@@ -23,84 +23,86 @@ splitter.pageItemCount(3) // returns -1
 splitter.pageIndex(2); // returns 1
 splitter.pageIndex(-2); // returns -1
 */
-export function PageSplitterCheck( items, itemsPerPage, checkItemsOnPage, checkItemBelongsTo ) {
-    let splitter = new PageSplitter(items, itemsPerPage);
-    let solution = [];
-    solution[0] = splitter.pageCount();
-    solution[1] = splitter.itemCount();
-    solution[2] = splitter.pageItemCount(checkItemsOnPage);
-    solution[3] = splitter.pageIndex(checkItemBelongsTo
-    return solution;
-  }
-  // DO NOT MODIFY THE CODE ABOVE!
-  
-  class PageSplitter {
-   
-  }
-  
-  /**********2************/
-  /*
-  Given a list of integers, determine if the product of all of the integers is even or odd.
-      1) Return the sum of all of the integers if the product of all of the integers is even.</li><li>
-      2) Return 0 if the product of all of the integers is odd.</li></ol><p><br></p><p>
-      
-      Note that 0 is considered even.
-      
-      Examples:
-      Input: [1,2,3,4]
-      Output: 10
-      Explanation: 1 * 2 * 3 * 4 = 24. This is an even number. The sum of all of the integers is 10
-      
-      Input: [5,7,9]
-      Output: 0
-      Explanation: 5 * 7 * 9 = 315 is odd so the function returns 0
-  */
-  export function odd_even_product( my_list ) {
-       //Insert your code here 
-  }
-  
-  
-  
-  /**********3************/
-  /*
-  Your objective is to create a script that sorts an array of numbers in ascending order and returns the sorted array. Multiple sorting algorithms can be used. In this exercise, we're using the QuickSort algorithm. QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot.
-  
-  The steps to implement quick sorting algorithm are as follows:
-  Step 1 − Select the right-most index value as the pivot
-  Step 2 − Partition the array into two subsets (one for values greater than the pivot and one for values less than the pivot)
-  Step 3 − QuickSort the left partition recursively
-  Step 4 − QuickSort the right partition recursively
-  
-  The function should behave as follows:
-  Input array: [3, 0, 2, 5, -1, 4, 1, 10, 23, 15, 20, 12]
-  Sorted output: -1,0,1,2,3,4,5,10,12,15,20,23
-  
-  An initial function called QuickSort is given. It takes an unsorted array of both strings and integers as parameter. If there are duplicates in the unsorted array, the function should remove the duplicate values. 
-  
-  It turns out, however, that the code doesn't pass all test cases. Your task is to fix the bug(s) in the code.
-  */
-  export function QuickSort( unsortedArray ) {
-      var lowerValues = [];
-      var higherValues = [];
-      
-      var temp = [];
+function PageSplitterCheck( items, itemsPerPage, checkItemsOnPage, checkItemBelongsTo ) {
+  let splitter = new PageSplitter(items, itemsPerPage);
+  let solution = [];
+  solution[0] = splitter.pageCount();
+  solution[1] = splitter.itemCount();
+  solution[2] = splitter.pageItemCount(checkItemsOnPage);
+  solution[3] = splitter.pageIndex(checkItemBelongsTo);
+  return solution;
+}
+// DO NOT MODIFY THE CODE ABOVE!
+
+class PageSplitter {
+  //Insert your code here 
+}
+//example
+let results1 = new PageSplitter([1, 2, 3, 'a', 'b', 'c'], 2);
+
+/**********2************/
+/*
+Given a list of integers, determine if the product of all of the integers is even or odd.
+    1) Return the sum of all of the integers if the product of all of the integers is even.</li><li>
+    2) Return 0 if the product of all of the integers is odd.</li></ol><p><br></p><p>
     
-      var pivotKey = 0;
-      var pivotValue = unsortedArray.shift();
-      
-      for (var i = 0; i < unsortedArray.length; i++) {
-        if (parseInt(unsortedArray[i]) <= pivotValue) {
-          lowerValues.push(unsortedArray[i]);
-        } else if (parseInt(unsortedArray[i]) >= pivotValue) {
-            higherValues.push(unsortedArray[i]);     
-        }
-      }
+    Note that 0 is considered even.
     
-      temp[pivotKey] = pivotValue;
+    Examples:
+    Input: [1,2,3,4]
+    Output: 10
+    Explanation: 1 * 2 * 3 * 4 = 24. This is an even number. The sum of all of the integers is 10
+    
+    Input: [5,7,9]
+    Output: 0
+    Explanation: 5 * 7 * 9 = 315 is odd so the function returns 0
+*/
+function odd_even_product( my_list ) {
+  //Insert your code here 
+}
+//example
+let results2 = odd_even_product([5,7,9])
+
+/**********3************/
+/*
+Your objective is to create a script that sorts an array of numbers in ascending order and returns the sorted array. Multiple sorting algorithms can be used. In this exercise, we're using the QuickSort algorithm. QuickSort is a Divide and Conquer algorithm. It picks an element as pivot and partitions the given array around the picked pivot.
+
+The steps to implement quick sorting algorithm are as follows:
+Step 1 − Select the right-most index value as the pivot
+Step 2 − Partition the array into two subsets (one for values greater than the pivot and one for values less than the pivot)
+Step 3 − QuickSort the left partition recursively
+Step 4 − QuickSort the right partition recursively
+
+The function should behave as follows:
+Input array: [3, 0, 2, 5, -1, 4, 1, 10, 23, 15, 20, 12]
+Sorted output: -1,0,1,2,3,4,5,10,12,15,20,23
+
+An initial function called QuickSort is given. It takes an unsorted array of both strings and integers as parameter. If there are duplicates in the unsorted array, the function should remove the duplicate values. 
+
+It turns out, however, that the code doesn't pass all test cases. Your task is to fix the bug(s) in the code.
+*/
+function QuickSort( unsortedArray ) {
+
+  //edit this code to debug
+  var lowerValues = [];
+  var higherValues = [];
   
-      return QuickSort(lowerValues).concat(temp, QuickSort(higherValues));
+  var temp = [];
+
+  var pivotKey = 0;
+  var pivotValue = unsortedArray.shift();
+  
+  for (var i = 0; i < unsortedArray.length; i++) {
+    if (parseInt(unsortedArray[i]) <= pivotValue) {
+      lowerValues.push(unsortedArray[i]);
+    } else if (parseInt(unsortedArray[i]) >= pivotValue) {
+        higherValues.push(unsortedArray[i]);     
+    }
   }
-  
-  
-  
-  
+
+  temp[pivotKey] = pivotValue;
+
+  return QuickSort(lowerValues).concat(temp, QuickSort(higherValues));
+}
+//example
+let results3 = QuickSort([3, 0, 2, 5, -1, 4, 1, 10, 23, 15, 20, 12])

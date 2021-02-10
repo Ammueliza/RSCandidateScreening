@@ -23,7 +23,12 @@ splitter.pageItemCount(3) // returns -1
 splitter.pageIndex(2); // returns 1
 splitter.pageIndex(-2); // returns -1
 */
-function PageSplitterCheck( items, itemsPerPage, checkItemsOnPage, checkItemBelongsTo ) {
+function PageSplitterCheck(
+  items,
+  itemsPerPage,
+  checkItemsOnPage,
+  checkItemBelongsTo
+) {
   let splitter = new PageSplitter(items, itemsPerPage);
   let solution = [];
   solution[0] = splitter.pageCount();
@@ -35,10 +40,82 @@ function PageSplitterCheck( items, itemsPerPage, checkItemsOnPage, checkItemBelo
 // DO NOT MODIFY THE CODE ABOVE!
 
 class PageSplitter {
-  //Insert your code here 
+  constructor(items, itemsPerPage) {
+    this.items = items;
+    this.itemsPerPage = itemsPerPage;
+    this.pages = [];
+    this.splitPage();
+  }
+
+  splitPage() {
+    // a method to split the items into pages
+    let pageCount = this.pageCount();
+    let start = 0;
+    let end = this.itemsPerPage;
+
+    for (let i = 0; i < pageCount; i++) {
+      let itemsOnCurrentPage = this.items.slice(start, end);
+      this.pages.push(itemsOnCurrentPage);
+      start = start + this.itemsPerPage;
+      end = start + this.itemsPerPage;
+    }
+  }
+
+  pageCount() {
+    //shows the amount of pages that the items have been split into
+    let pageCount = 0;
+    if (this.itemsPerPage > 0 && this.items && this.items.length > 0) {
+      pageCount = Math.ceil(this.items.length / this.itemsPerPage);
+    }
+    return pageCount;
+  }
+
+  itemCount() {
+    //shows the amount of items stored in the object.
+    let itemCount = this.items.length;
+    return itemCount;
+  }
+
+  pageItemCount(pageIndex) {
+    //shows the amount of items stored on a specific page.
+    //It should take an integer as parameter and look up the page with that index,
+    //then return the item count on that page.
+    let pageItems = this.pages[pageIndex];
+    let numberOfItems = pageItems ? pageItems.length : -1;
+    return numberOfItems;
+  }
+
+  pageIndex(itemIndex) {
+    //shows the index of the page that the given item index is stored in.
+    //It should take an integer as parameter and
+    // return page's index where the item with the given index is stored in.
+    let item = this.items[itemIndex];
+    if (!item || this.pageCount() === 0) {
+      return -1;
+    }
+    for (let [pageIndex, pageItems] of this.pages.entries()) {
+      if (pageItems.includes(item)) {
+        return pageIndex;
+      }
+    }
+  }
 }
 //example
-let results1 = new PageSplitter([1, 2, 3, 'a', 'b', 'c'], 2);
+let results1 = new PageSplitter([1, 2, 3, "a", "b", "c"], 2);
+console.log("------Testing PageSplitter--------");
+//test case1 in PageSplitterCheck factory function
+let pageSplitterCheck1 = new PageSplitterCheck([1, 2, 3, "a", "b", "c"], 2, 0, 2);
+console.log(pageSplitterCheck1);
+//test case2 in PageSplitterCheck factory function --- invalid page index ,invalid item index
+let pageSplitterCheck2 = new PageSplitterCheck([1, 2, 3, "a", "b", "c"], 2, 3, -2);
+console.log(pageSplitterCheck2);
+//test case3 empty items
+let pageSplitterCheck3 = new PageSplitterCheck([], 2, 3, -2);
+console.log(pageSplitterCheck3);
+//test case4 invalid  itemsperpage
+let pageSplitterCheck4 = new PageSplitterCheck([1,2,3], -9, 0, 1);
+console.log(pageSplitterCheck4);
+
 
 /**********2************/
 /*
@@ -57,11 +134,23 @@ Given a list of integers, determine if the product of all of the integers is eve
     Output: 0
     Explanation: 5 * 7 * 9 = 315 is odd so the function returns 0
 */
-function odd_even_product( my_list ) {
-  //Insert your code here 
+function odd_even_product(my_list) {
+  let product = my_list.reduce((acc, curr) => acc * curr, 1);
+  let isProductEven = product % 2 === 0;
+  if (isProductEven) {
+    let sum = my_list.reduce((acc, curr) => acc + curr, 0);
+    return sum;
+  } else {
+    return 0;
+  }
 }
-//example
-let results2 = odd_even_product([5,7,9])
+console.log("------Testing odd_even_product--------")
+let results2 = odd_even_product([5, 7, 9]);
+console.log(results2);
+let resultWithEvenProduct = odd_even_product([1, 2, 4, 6]);
+console.log(resultWithEvenProduct);
+let resultWithOddProduct = odd_even_product([-1, 55, 7]);
+console.log(resultWithOddProduct);
 
 /**********3************/
 /*
@@ -81,22 +170,28 @@ An initial function called QuickSort is given. It takes an unsorted array of bot
 
 It turns out, however, that the code doesn't pass all test cases. Your task is to fix the bug(s) in the code.
 */
-function QuickSort( unsortedArray ) {
+function QuickSort(unsortedArray) {
+  //Adding base condition for the recursion to stop
+  if (unsortedArray.length <= 1) {
+    return unsortedArray;
+  }
 
-  //edit this code to debug
   var lowerValues = [];
   var higherValues = [];
-  
+
   var temp = [];
 
   var pivotKey = 0;
-  var pivotValue = unsortedArray.shift();
-  
+
+  //Type casting: Number() method converts a string to a number.
+  var pivotValue = Number(unsortedArray.shift());
+
   for (var i = 0; i < unsortedArray.length; i++) {
-    if (parseInt(unsortedArray[i]) <= pivotValue) {
+    // removed = sign to make the conditions mutually exclusive
+    if (parseInt(unsortedArray[i]) < pivotValue) {
       lowerValues.push(unsortedArray[i]);
-    } else if (parseInt(unsortedArray[i]) >= pivotValue) {
-        higherValues.push(unsortedArray[i]);     
+    } else if (parseInt(unsortedArray[i]) > pivotValue) {
+      higherValues.push(unsortedArray[i]);
     }
   }
 
@@ -104,5 +199,13 @@ function QuickSort( unsortedArray ) {
 
   return QuickSort(lowerValues).concat(temp, QuickSort(higherValues));
 }
-//example
-let results3 = QuickSort([3, 0, 2, 5, -1, 4, 1, 10, 23, 15, 20, 12])
+console.log("------Testing Quick Sort--------")
+console.log("Sorting with negatives");
+let result3 = QuickSort([3, 0, 2, 5, -1, 4, 1, 10, 23, 15, 20, 12]);
+console.log(result3);
+console.log("Sorting with negatives & floats");
+let result31 = QuickSort([3, 0, 2, 5.9, 5.9, -1, 4, 1, 10, 23, 15, 20, 12]);
+console.log(result31);
+console.log("Sorting with negatives, floats and numeric strings");
+let result32 = QuickSort([3, 0, 2, 5.9, 5.9,"9", -1, 4, 1, 10, 23, 15, 20, 12]);
+console.log(result32);
